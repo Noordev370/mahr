@@ -1,0 +1,275 @@
+module PostCar exposing (main)
+
+import Browser
+import File exposing (File)
+import File.Select
+import Html exposing (..)
+import Html.Attributes exposing (class, for, id, name, type_)
+import Html.Events as Events
+import Http
+
+
+main : Program () Model Msg
+main =
+    Browser.document
+        { init = init
+        , view = viewDocument
+        , update = update
+        , subscriptions = \_ -> Sub.none
+        }
+
+
+type alias Model =
+    { mark : String
+    , color : String
+    , modelDate : String
+    , price : String
+    , carPicture : Maybe File
+    , validationErrMsgs : ValidationErrRecMsgs
+    }
+
+
+
+-- record will hold the messages of all validation errors, message will be "" if no error happens
+
+
+type alias ValidationErrRecMsgs =
+    { markErr : String
+    , colorErr : String
+    , modelDateErr : String
+    , priceErr : String
+    , pictureErr : String
+    }
+
+
+
+-- the model fields values after being validated before sending to server
+
+
+type alias ValidatedModel =
+    { mark : String
+    , color : String
+    , modelDate : String
+    , price : String
+    , carPicture : File
+    }
+
+
+initModel : Model
+initModel =
+    Model "" "" "" "" Nothing (ValidationErrRecMsgs "" "" "" "" "")
+
+
+init : () -> ( Model, Cmd Msg )
+init () =
+    ( initModel, Cmd.none )
+
+
+type Msg
+    = ChangeMark String
+    | ChangeColor String
+    | ChangeDate String
+    | ChangePrice String
+    | PictureFileRequested
+    | ChangePicture File
+    | Submit
+    | RequestSent (Result Http.Error ())
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        ChangeMark newVal ->
+            ( { model | mark = newVal }, Cmd.none )
+
+        ChangeColor newVal ->
+            ( { model | color = newVal }, Cmd.none )
+
+        ChangeDate newVal ->
+            ( { model | modelDate = newVal }, Cmd.none )
+
+        ChangePrice newVal ->
+            ( { model | price = newVal }, Cmd.none )
+
+        PictureFileRequested ->
+            ( model, File.Select.file [ "image/jpg", "image/png" ] ChangePicture )
+
+        ChangePicture file ->
+            ( { model | carPicture = Just file }, Cmd.none )
+
+        Submit ->
+            case validateFormInputs model of
+                Ok validatedModel ->
+                    ( model, sendCarInfo validatedModel )
+
+                Err errRecMsgs ->
+                    ( { model | validationErrMsgs = errRecMsgs }, Cmd.none )
+
+        RequestSent result ->
+            case result of
+                Ok _ ->
+                    ( model, Cmd.none )
+
+                Err _ ->
+                    ( model, Cmd.none )
+
+
+
+-- view
+
+
+viewDocument : Model -> Browser.Document Msg
+viewDocument model =
+    { title = "POST Car", body = [ view model ] }
+
+
+view : Model -> Html Msg
+view model =
+    div [] [ markInput model, colorInput model, modelDateInput model, priceInput model, pictureInput model, submitButton ]
+
+
+markInput : Model -> Html Msg
+markInput model =
+    div []
+        [ label [ for "mark" ] [ text "Mark : " ]
+        , input [ type_ "text", id "mark", name "mark", Events.onInput ChangeMark ] []
+        , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.markErr ] -- a div represent a space for error message, will be empty if no validation errors
+        ]
+
+
+colorInput : Model -> Html Msg
+colorInput model =
+    div []
+        [ label [ for "color" ] [ text "Color : " ]
+        , input [ type_ "text", id "color", name "color", Events.onInput ChangeColor ] []
+        , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.colorErr ] -- a div represent a space for error message, will be empty if no validation errors
+        ]
+
+
+modelDateInput : Model -> Html Msg
+modelDateInput model =
+    div []
+        [ label [ for "date" ] [ text "Model date : " ]
+        , input [ type_ "number", id "date", name "date", Events.onInput ChangeDate ] []
+        , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.modelDateErr ]
+        ]
+
+
+priceInput : Model -> Html Msg
+priceInput model =
+    div []
+        [ label [ for "price" ] [ text "Price : " ]
+        , input [ type_ "number", id "price", name "price", Events.onInput ChangePrice ] []
+        , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.priceErr ]
+        ]
+
+
+pictureInput : Model -> Html Msg
+pictureInput model =
+    div []
+        [ label [ for "picture" ] [ text "Car Picture : " ]
+        , input [ type_ "file", id "picture", name "date", Events.onClick PictureFileRequested ] [ text "add a picture of the car" ]
+        , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.pictureErr ]
+        ]
+
+
+submitButton =
+    div [] [ button [ type_ "submit", Events.onClick Submit ] [ text "submit" ] ]
+
+
+
+-- styles
+{--
+badInputStyle =
+    style "border-color" "red"
+
+
+validInputStyle =
+    style "border-color" "blue"
+--}
+-- validators
+
+
+isCarMarkInValid : String -> Bool
+isCarMarkInValid mark =
+    if mark == "" then
+        True
+
+    else
+        False
+
+
+isCarColorInValid : String -> Bool
+isCarColorInValid color =
+    if color == "" then
+        True
+
+    else
+        False
+
+
+isCarModelDateInValid : String -> Bool
+isCarModelDateInValid modelDate =
+    if modelDate == "" then
+        True
+
+    else
+        False
+
+
+isCarPriceInValid : String -> Bool
+isCarPriceInValid price =
+    case String.toFloat price of
+        Nothing ->
+            True
+
+        Just _ ->
+            False
+
+
+validateFormInputs : Model -> Result ValidationErrRecMsgs ValidatedModel
+validateFormInputs inputs =
+    case inputs.carPicture of
+        Just pictureFile ->
+            if isCarMarkInValid inputs.mark then
+                Err (ValidationErrRecMsgs "the car mark is invalid" "" "" "" "")
+
+            else if isCarColorInValid inputs.color then
+                Err (ValidationErrRecMsgs "" "the car color is invalid" "" "" "")
+
+            else if isCarPriceInValid inputs.price then
+                Err (ValidationErrRecMsgs "" "" "" "the car price is invalid" "")
+
+            else if isCarModelDateInValid inputs.modelDate then
+                Err (ValidationErrRecMsgs "" "" "the car model is invalid" "" "")
+
+            else
+                Ok
+                    { mark = inputs.mark
+                    , color = inputs.color
+                    , modelDate = inputs.modelDate
+                    , price = inputs.price
+                    , carPicture = pictureFile
+                    }
+
+        Nothing ->
+            Err (ValidationErrRecMsgs "" "" "" "" "add a car picture")
+
+
+
+-- http things
+
+
+sendCarInfo model =
+    Http.post { url = "http://localhost:3000", body = body model, expect = Http.expectWhatever RequestSent }
+
+
+body : ValidatedModel -> Http.Body
+body model =
+    Http.multipartBody
+        [ Http.stringPart "mark" model.mark
+        , Http.stringPart "color" model.color
+        , Http.stringPart "date" model.modelDate
+        , Http.stringPart "price" model.price
+        , Http.filePart "picture" model.carPicture
+        ]

@@ -1,0 +1,33 @@
+{
+  "name": "mahr",
+  "version": "1.0.0",
+  "description": "mahr backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./build/server.js",
+    "prettier": "prettier .  --write",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github/noor"
+  },
+  "author": "Noor",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@hapi/hapi": "^21.4.0",
+    "@hapi/inert": "^7.1.0",
+    "dotenv": "^16.5.0",
+    "postgres": "^3.4.7"
+  },
+  "devDependencies": {
+    "@types/hapi__hapi": "^20.0.13",
+    "@types/hapi__inert": "^5.2.10",
+    "@types/node": "^22.15.24",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  }
+}
