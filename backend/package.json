@@ -7,11 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./build/server.js",
     "prettier": "prettier .  --write",
-    "build": "tsc"
+    "build": "tsc",
+    "build-front": "cd ../frontend && ../frontend/build.bash"
   },
   "repository": {
     "type": "git",
-    "url": "https://github/noor"
+    "url": "https://github.com/Noordev370/mahr"
   },
   "author": "Noor",
   "license": "MIT",

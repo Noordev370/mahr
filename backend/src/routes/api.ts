@@ -39,38 +39,38 @@ const apiRoutes = {
     server.route({
       method: "POST",
       path: "/api/post-car",
-      handler: async (request,h) => {
+      handler: async (request, h) => {
         return "ok";
       },
     });
     server.route({
       method: "GET",
       path: "/api/get-buyable-cars",
-      handler: async (request,h) => {
-        const res = await dbWorks.getAllAvilableCarsToBuy()
-        return res
+      handler: async (request, h) => {
+        const res = await dbWorks.getAllAvilableCarsToBuy();
+        return res;
       },
     });
     server.route({
-      method: 'GET',
+      method: "GET",
       path: "/api/users/:username",
-      handler: async (request,h) => {
-       const  res = await dbWorks.getUserRecordByName(request.params.username);
-       return res[0]
+      handler: async (request, h) => {
+        const res = await dbWorks.getUserRecordByName(request.params.username);
+        return res[0];
       },
     });
     server.route({
       method: "POST",
       path: "/api/post-car",
-      handler: async (req,h) => {
+      handler: async (req, h) => {
         return "ok";
       },
     });
     server.route({
       method: "POST",
       path: "/api/set-car-sold/:carID",
-      handler: async (req,h) => {
-        await dbWorks.setCarSold(req.params.carID)
+      handler: async (req, h) => {
+        await dbWorks.setCarSold(req.params.carID);
         return "ok";
       },
     });

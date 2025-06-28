@@ -1,7 +1,7 @@
 import Hapi from "@hapi/hapi";
 import inert from "@hapi/inert";
 import Path from "path";
-import {apiRoutes} from "./routes/api"
+import { apiRoutes } from "./routes/api";
 import { config } from "./config";
 
 const init = async () => {
@@ -14,7 +14,7 @@ const init = async () => {
   });
 
   await server.register(inert);
-  await server.register({plugin :apiRoutes})
+  await server.register({ plugin: apiRoutes });
 
   server.route({
     method: "GET",
