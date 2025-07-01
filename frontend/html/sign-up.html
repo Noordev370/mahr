@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+  <script src="../elm/sign-up.js"></script>
+</head>
+
+<body>
+  <div id="myapp"></div>
+  <script>
+    let app = Elm.Main.init({
+      node: document.getElementById('myapp')
+    });
+    app.ports.sendToken.subscribe((msg) => {
+      window.localstorag.set();
+    })
+  </script>
+</body>
+
+</html>
