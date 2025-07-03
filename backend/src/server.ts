@@ -9,7 +9,7 @@ const init = async () => {
     port: config.serverConfig.serverPort,
     host: config.serverConfig.serverIP,
     routes: {
-      files: { relativeTo: Path.join("/home/noor/MAHR/backend", "static") },
+      files: { relativeTo: Path.join("/home/noor/mahr/backend", "static") },
     },
   });
 
@@ -20,7 +20,7 @@ const init = async () => {
     method: "GET",
     path: "/",
     handler: (_, h) => {
-      return h.file("html/home.html");
+      return h.file("../static/html/home.html");
     },
   });
 
@@ -34,7 +34,7 @@ const init = async () => {
     method: "GET",
     path: "/profile",
     handler: (req, h) => {
-      return h.file("html/profile.html");
+      return h.file("../static/html/profile.html");
     },
   });
 
@@ -42,14 +42,14 @@ const init = async () => {
     method: "GET",
     path: "/sign-up",
     handler: (req, h) => {
-      return h.file("html/sign-up.html");
+      return h.file("../static/html/sign-up.html");
     },
   });
   server.route({
     method: "GET",
     path: "/sign-in",
     handler: (req, h) => {
-      return h.file("html/sign-in.html");
+      return h.file("../static/html/sign-in.html");
     },
   });
   server.route({

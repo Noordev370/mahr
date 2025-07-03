@@ -1,6 +1,10 @@
 .sign-up-form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
   accent-color: var(--acc-color);
+  max-width: 800px;
+  /* border-radius: 20px; */
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  ;
 }

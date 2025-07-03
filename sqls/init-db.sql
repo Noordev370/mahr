@@ -8,7 +8,7 @@
 create table users( username text unique NOT NULL,
                     password text NOT NULL,
                     bio text NOT NULL,
-                    picture_file_name text unique NOT NULL);
+                    picture_file_name text NOT NULL);
 
 create table cars( id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
                    mark TEXT NOT NULL,

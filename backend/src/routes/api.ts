@@ -1,4 +1,7 @@
 import { ResponseToolkit, Server } from "@hapi/hapi";
+import boom from "@hapi/boom";
+import { createWriteStream } from "fs";
+import path from "path";
 import dbWorks from "../dbWorks";
 
 const apiRoutes = {
@@ -7,13 +10,14 @@ const apiRoutes = {
   register: async function (server: Server, options: any) {
     server.route({
       method: "POST",
-      path: "/api/signin",
+      path: "/api/sign-in",
       handler: (request, h) => {
         // @ts-ignore
         return request.payload.username;
       },
       options: {
         payload: {
+          timeout: 2000,
           multipart: { output: "stream" },
           parse: true,
           allow: "multipart/form-data",
@@ -23,13 +27,33 @@ const apiRoutes = {
 
     server.route({
       method: "POST",
-      path: "/api/signup",
-      handler: (request, h) => {
-        // @ts-ignore
-        return request.payload.username;
+      path: "/api/sign-up",
+      handler: async (request, h) => {
+        const payload: any = request.payload;
+        await dbWorks.createUser({
+          username: payload.username,
+          password: payload.password,
+          picture_file_name: payload.profile_picture.hapi.filename,
+          bio: payload.bio,
+        });
+        if (!payload.profile_picture) {
+          throw boom.badRequest;
+        }
+        const uploadedFileStream = createWriteStream(
+          path.resolve(process.cwd(),'./uploads', payload.profile_picture.hapi.filename)
+        );
+        return new Promise((resolve, reject) => {
+          payload.profile_picture
+            .pipe(uploadedFileStream)
+            .on("error", (err: any) => console.log(err))
+            .on("finish", () => {
+              resolve("ok");
+            });
+        });
       },
       options: {
         payload: {
+          timeout: 2000,
           multipart: { output: "stream" },
           parse: true,
           allow: "multipart/form-data",
@@ -57,13 +81,6 @@ const apiRoutes = {
       handler: async (request, h) => {
         const res = await dbWorks.getUserRecordByName(request.params.username);
         return res[0];
-      },
-    });
-    server.route({
-      method: "POST",
-      path: "/api/post-car",
-      handler: async (req, h) => {
-        return "ok";
       },
     });
     server.route({

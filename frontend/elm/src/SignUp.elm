@@ -8,7 +8,6 @@ import Html exposing (..)
 import Html.Attributes exposing (class, for, id, name, required, src, type_)
 import Html.Events as Events
 import Http
-import Profile exposing (view)
 import Task
 
 
@@ -174,6 +173,7 @@ body data =
     Http.multipartBody
         [ Http.stringPart "username" data.username
         , Http.stringPart "password" data.password
+        , Http.stringPart "bio" data.bio
         , Http.filePart "profile_picture" data.profilePicture
         ]
 
