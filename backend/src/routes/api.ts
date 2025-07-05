@@ -3,6 +3,7 @@ import boom from "@hapi/boom";
 import { createWriteStream } from "fs";
 import path from "path";
 import dbWorks from "../dbWorks";
+import utils from "../utils";
 
 const apiRoutes = {
   name: "api_routes_plugin",
@@ -40,14 +41,18 @@ const apiRoutes = {
           throw boom.badRequest;
         }
         const uploadedFileStream = createWriteStream(
-          path.resolve(process.cwd(),'./uploads', payload.profile_picture.hapi.filename)
+          path.resolve(
+            process.cwd(),
+            "./uploads",
+            payload.profile_picture.hapi.filename,
+          ),
         );
         return new Promise((resolve, reject) => {
           payload.profile_picture
             .pipe(uploadedFileStream)
             .on("error", (err: any) => console.log(err))
             .on("finish", () => {
-              resolve("ok");
+              resolve(utils.jwtSign(payload.username));
             });
         });
       },

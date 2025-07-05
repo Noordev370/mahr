@@ -21,11 +21,13 @@
     "@hapi/hapi": "^21.4.0",
     "@hapi/inert": "^7.1.0",
     "dotenv": "^16.5.0",
+    "jsonwebtoken": "^9.0.2",
     "postgres": "^3.4.7"
   },
   "devDependencies": {
     "@types/hapi__hapi": "^20.0.13",
     "@types/hapi__inert": "^5.2.10",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.15.24",
     "nodemon": "^3.1.10",
     "prettier": "^3.5.3",

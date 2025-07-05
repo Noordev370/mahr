@@ -2,7 +2,7 @@ import Hapi from "@hapi/hapi";
 import inert from "@hapi/inert";
 import Path from "path";
 import { apiRoutes } from "./routes/api";
-import { config } from "./config";
+import config from "./config";
 
 const init = async () => {
   const server = Hapi.server({
@@ -68,7 +68,7 @@ const init = async () => {
   });
 
   await server.start();
-  console.log("Server running on %s", server.info.uri);
+  console.log("Server running on http://localhost:3000/");
 };
 
 process.on("unhandledRejection", (err) => {

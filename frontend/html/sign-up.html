@@ -13,7 +13,7 @@
   <script>
     let app = Elm.SignUp.init()
     app.ports.sendToken.subscribe((msg) => {
-      window.sessionStorag.setItem("jwt_token", msg);
+      window.sessionStorage.setItem("jwt_token", msg);
     })
   </script>
 </body>

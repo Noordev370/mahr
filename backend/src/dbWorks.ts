@@ -1,5 +1,5 @@
 import postgres from "postgres";
-import { config } from "./config.js";
+import config from "./config.js";
 
 const sql = postgres("postgres://node:node@'127.0.0.1':5432/noor", {
   username: "node",

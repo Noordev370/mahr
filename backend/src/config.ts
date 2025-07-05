@@ -25,6 +25,7 @@ const dbConfig = {
 
 // jwt
 
+const jwtConfig = { secret: "noorsecret" };
 // hash
 
-export const config = { serverConfig: serverConfig, dbConfig: dbConfig };
+export default { serverConfig: serverConfig, dbConfig: dbConfig, jwtConfig };

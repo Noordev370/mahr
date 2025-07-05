@@ -2,6 +2,7 @@ port module SignUp exposing (main)
 
 import Browser
 import Browser.Navigation exposing (load)
+import Debug
 import File exposing (File)
 import File.Select
 import Html exposing (..)
@@ -84,7 +85,7 @@ update msg model =
                     ( model, Cmd.batch [ sendToken jwtToken, load ("http://localhost:3000/users/" ++ model.username) ] )
 
                 Err _ ->
-                    ( model, Cmd.none )
+                    ( Debug.log "error happend" model, Cmd.none )
 
         ChangeUserName name ->
             ( { model | username = name }, Cmd.none )
