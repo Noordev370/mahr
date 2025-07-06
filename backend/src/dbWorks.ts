@@ -35,12 +35,12 @@ async function createUser(user: IUser) {
 }
 async function getUserRecordByName(username: string) {
   const result = await sql`SELECT * FROM users WHERE username = ${username}`;
-  return result;
+  return result[0];
 }
 async function getUserPasswordByName(username: string) {
   const result =
     await sql`SELECT password from users WHERE username = ${username}`;
-  return result;
+  return result[0].password;
 }
 async function changeUserPassword(username: string, newPassword: string) {
   await sql`UPDATE users  SET password = ${newPassword} WHERE username = ${username}`;
@@ -54,7 +54,7 @@ async function postCar(car: ICar) {
 }
 async function getCarRecordByID(carID: number) {
   const result = await sql`SELECT * FROM cars WHERE id = ${carID}`;
-  return result;
+  return result[0];
 }
 
 async function getAllAvilableCarsToBuy() {

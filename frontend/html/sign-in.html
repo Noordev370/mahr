@@ -2,19 +2,20 @@
 <html>
 
 <head>
-  <title>Login Page</title>
-  <script src="../js/sign-in.js"></script>
+  <meta charset="UTF-8">
+  <title>Main</title>
+  <link rel="stylesheet" href="/static/css/index.css">
+  <script src="/static/elm/sign-in.js"></script>
 </head>
 
-<body>
-  <form name="login-form" class="login">
-    <div>
-      <label>Username: </label><input type="text" name="username" class="username">
-      <label>Password: </label><input type="password" name="password" class="password">
-      <br><br>
-      <button type="submit">submit</button>
-    </div>
-  </form>
+<body class="lala">
+  <div id="myapp"></div>
+  <script>
+    let app = Elm.SignIn.init()
+    app.ports.sendToken.subscribe((msg) => {
+      window.sessionStorage.setItem("jwt_token", msg);
+    })
+  </script>
 </body>
 
 </html>

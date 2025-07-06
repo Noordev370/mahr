@@ -12,10 +12,6 @@ const apiRoutes = {
     server.route({
       method: "POST",
       path: "/api/sign-in",
-      handler: (request, h) => {
-        // @ts-ignore
-        return request.payload.username;
-      },
       options: {
         payload: {
           timeout: 2000,
@@ -23,6 +19,15 @@ const apiRoutes = {
           parse: true,
           allow: "multipart/form-data",
         },
+      },
+      handler: async (request, h) => {
+        const payload: any = request.payload;
+        const password = await dbWorks.getUserPasswordByName(payload.username);
+        if (password === payload.password) {
+          return utils.jwtSign(payload.username);
+        } else {
+          throw boom.unauthorized();
+        }
       },
     });
 

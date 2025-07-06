@@ -82,10 +82,10 @@ update msg model =
         RequestSent result ->
             case result of
                 Ok jwtToken ->
-                    ( model, Cmd.batch [ sendToken jwtToken, load ("http://localhost:3000/users/" ++ model.username) ] )
+                    ( model, Cmd.batch [ sendToken jwtToken, load ("http://localhost:3000/profile/" ++ model.username) ] )
 
                 Err _ ->
-                    ( Debug.log "error happend" model, Cmd.none )
+                    ( model, Cmd.none )
 
         ChangeUserName name ->
             ( { model | username = name }, Cmd.none )

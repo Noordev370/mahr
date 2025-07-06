@@ -1,6 +1,7 @@
-module SignIn exposing (main)
+port module SignIn exposing (main)
 
 import Browser
+import Browser.Navigation exposing (load)
 import Html exposing (..)
 import Html.Attributes exposing (class, for, id, name, type_)
 import Html.Events as Events
@@ -16,6 +17,13 @@ main =
         , update = update
         , subscriptions = \_ -> Sub.none
         }
+
+
+type alias Jwt_Token =
+    String
+
+
+port sendToken : Jwt_Token -> Cmd msg
 
 
 type alias Model =
@@ -49,8 +57,8 @@ update msg model =
 
         RequestSent result ->
             case result of
-                Ok str ->
-                    ( model, Cmd.none )
+                Ok jwtToken ->
+                    ( model, Cmd.batch [ sendToken jwtToken, load ("http://localhost:3000/profile/" ++ model.username) ] )
 
                 Err httpErr ->
                     case httpErr of
@@ -102,7 +110,7 @@ submitButton =
 
 
 sendFormData model =
-    Http.post { url = "http://localhost:3000/api/signin", body = body model, expect = Http.expectString RequestSent }
+    Http.post { url = "http://localhost:3000/api/sign-in", body = body model, expect = Http.expectString RequestSent }
 
 
 body : Model -> Http.Body
