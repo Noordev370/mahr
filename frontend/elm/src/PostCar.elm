@@ -178,15 +178,6 @@ submitButton =
 
 
 
--- styles
-{--
-badInputStyle =
-    style "border-color" "red"
-
-
-validInputStyle =
-    style "border-color" "blue"
---}
 -- validators
 
 
@@ -261,7 +252,15 @@ validateFormInputs inputs =
 
 
 sendCarInfo model =
-    Http.post { url = "http://localhost:3000", body = body model, expect = Http.expectWhatever RequestSent }
+    Http.request
+        { method = "POST"
+        , headers = [ Http.header "Authorization" ("Bearer " ++ "") ]
+        , url = "http://localhost:3000/post-car"
+        , body = body model
+        , expect = Http.expectWhatever RequestSent
+        , timeout = Nothing
+        , tracker = Nothing
+        }
 
 
 body : ValidatedModel -> Http.Body

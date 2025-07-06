@@ -2,14 +2,18 @@
 <html>
 
 <head>
-  <title>Post</title>
-  <script>
-    let app = Elm.Main.init({
-      node: document.getElementById('myapp')
-    });
-  </script>
+  <meta charset="UTF-8">
+  <title>Main</title>
+  <link rel="stylesheet" href="/static/css/index.css">
+  <script src="/static/elm/post-car.js"></script>
 </head>
 
-<body></body>
+<body class="lala">
+  <div id="myapp"></div>
+  <script>
+    let app = Elm.PostCar.init()
+    app.ports.sendToken.subscribe()
+  </script>
+</body>
 
 </html>

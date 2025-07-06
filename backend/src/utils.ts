@@ -11,13 +11,12 @@ function jwtSign(payload: string) {
 }
 
 async function jwtVerify(token: string) {
-  return jwt.verify(token, config.jwtConfig.secret, (err, token) => {
-    if (err) {
-      return "error";
-    } else {
-      return token;
-    }
-  });
+  try {
+    jwt.verify(token, config.jwtConfig.secret);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 async function uploadFile(stream: ReadableStream) {

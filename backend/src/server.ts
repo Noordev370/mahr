@@ -3,6 +3,7 @@ import inert from "@hapi/inert";
 import Path from "path";
 import { apiRoutes } from "./routes/api";
 import config from "./config";
+import utils from "./utils";
 
 const init = async () => {
   const server = Hapi.server({
@@ -62,8 +63,15 @@ const init = async () => {
   server.route({
     method: "GET",
     path: "/post-car",
-    handler: (req, h) => {
-      return h.file("html/post-car.html");
+    handler: async (request, h) => {
+      const authHeader = request.headers.authorization;
+      const jwtToken = authHeader.replace("Bearer ", "");
+      console.log(jwtToken);
+      if (await utils.jwtVerify(jwtToken)) {
+        return h.redirect("/sign-in");
+      } else {
+        return h.file("html/post-car.html");
+      }
     },
   });
 

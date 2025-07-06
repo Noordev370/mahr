@@ -73,7 +73,24 @@ const apiRoutes = {
     server.route({
       method: "POST",
       path: "/api/post-car",
+      options: {
+        payload: {
+          timeout: 2000,
+          multipart: { output: "stream" },
+          parse: true,
+          allow: "multipart/form-data",
+        },
+      },
       handler: async (request, h) => {
+        const payload: any = request.payload;
+        await dbWorks.postCar({
+          mark: payload.mark,
+          price: payload.price,
+          model: payload.model,
+          color: payload.color,
+          status: "available",
+          picture_file_name: payload.picture.hapi.filename,
+        });
         return "ok";
       },
     });
@@ -87,7 +104,7 @@ const apiRoutes = {
     });
     server.route({
       method: "GET",
-      path: "/api/users/:username",
+      path: "/api/profile/:username",
       handler: async (request, h) => {
         const res = await dbWorks.getUserRecordByName(request.params.username);
         return res[0];
