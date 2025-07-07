@@ -16,4 +16,4 @@ create table cars( id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WI
                    price integer check (price > 0) NOT NULL,
                    color TEXT NOT NULL,
                    status TEXT NOT NULL,
-                   picture_file_name TEXT unique NOT NULL);
+                   picture_file_name TEXT NOT NULL);

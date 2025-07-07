@@ -2,7 +2,6 @@ port module SignUp exposing (main)
 
 import Browser
 import Browser.Navigation exposing (load)
-import Debug
 import File exposing (File)
 import File.Select
 import Html exposing (..)

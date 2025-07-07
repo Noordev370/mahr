@@ -8,11 +8,11 @@
   <script src="/static/elm/post-car.js"></script>
 </head>
 
-<body class="lala">
-  <div id="myapp"></div>
+<body>
   <script>
-    let app = Elm.PostCar.init()
-    app.ports.sendToken.subscribe()
+    let jwtToken = window.sessionStorage.getItem("jwt_token");
+    if (jwtToken === null) {jwtToken = ""} // convert it to empty string instead of null as elm expect a string
+    let app = Elm.PostCar.init({flags: jwtToken});
   </script>
 </body>
 

@@ -1,5 +1,6 @@
 import Hapi from "@hapi/hapi";
 import inert from "@hapi/inert";
+import boom from "@hapi/boom";
 import Path from "path";
 import { apiRoutes } from "./routes/api";
 import config from "./config";
@@ -33,7 +34,7 @@ const init = async () => {
 
   server.route({
     method: "GET",
-    path: "/profile",
+    path: "/profile/{username}",
     handler: (req, h) => {
       return h.file("../static/html/profile.html");
     },
@@ -64,14 +65,7 @@ const init = async () => {
     method: "GET",
     path: "/post-car",
     handler: async (request, h) => {
-      const authHeader = request.headers.authorization;
-      const jwtToken = authHeader.replace("Bearer ", "");
-      console.log(jwtToken);
-      if (await utils.jwtVerify(jwtToken)) {
-        return h.redirect("/sign-in");
-      } else {
-        return h.file("html/post-car.html");
-      }
+      return h.file("html/post-car.html");
     },
   });
 

@@ -1,6 +1,7 @@
 module PostCar exposing (main)
 
 import Browser
+import Browser.Navigation exposing (load)
 import File exposing (File)
 import File.Select
 import Html exposing (..)
@@ -9,7 +10,7 @@ import Html.Events as Events
 import Http
 
 
-main : Program () Model Msg
+main : Program String Model Msg
 main =
     Browser.document
         { init = init
@@ -26,6 +27,7 @@ type alias Model =
     , price : String
     , carPicture : Maybe File
     , validationErrMsgs : ValidationErrRecMsgs
+    , jwtToken : String
     }
 
 
@@ -55,14 +57,25 @@ type alias ValidatedModel =
     }
 
 
-initModel : Model
-initModel =
-    Model "" "" "" "" Nothing (ValidationErrRecMsgs "" "" "" "" "")
+initModel : String -> Model
+initModel token =
+    { mark = ""
+    , color = ""
+    , price = ""
+    , modelDate = ""
+    , carPicture = Nothing
+    , validationErrMsgs = ValidationErrRecMsgs "" "" "" "" ""
+    , jwtToken = token
+    }
 
 
-init : () -> ( Model, Cmd Msg )
-init () =
-    ( initModel, Cmd.none )
+init : String -> ( Model, Cmd Msg )
+init token =
+    if token == "" then
+        ( initModel token, load "/sign-in" )
+
+    else
+        ( initModel token, Cmd.none )
 
 
 type Msg
@@ -92,7 +105,7 @@ update msg model =
             ( { model | price = newVal }, Cmd.none )
 
         PictureFileRequested ->
-            ( model, File.Select.file [ "image/jpg", "image/png" ] ChangePicture )
+            ( model, File.Select.file [ "image/*" ] ChangePicture )
 
         ChangePicture file ->
             ( { model | carPicture = Just file }, Cmd.none )
@@ -168,7 +181,7 @@ pictureInput : Model -> Html Msg
 pictureInput model =
     div []
         [ label [ for "picture" ] [ text "Car Picture : " ]
-        , input [ type_ "file", id "picture", name "date", Events.onClick PictureFileRequested ] [ text "add a picture of the car" ]
+        , button [ id "picture", name "picture", Events.onClick PictureFileRequested ] [ text "add a picture of the car" ]
         , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.pictureErr ]
         ]
 
@@ -255,7 +268,7 @@ sendCarInfo model =
     Http.request
         { method = "POST"
         , headers = [ Http.header "Authorization" ("Bearer " ++ "") ]
-        , url = "http://localhost:3000/post-car"
+        , url = "http://localhost:3000/api/post-car"
         , body = body model
         , expect = Http.expectWhatever RequestSent
         , timeout = Nothing
@@ -268,7 +281,7 @@ body model =
     Http.multipartBody
         [ Http.stringPart "mark" model.mark
         , Http.stringPart "color" model.color
-        , Http.stringPart "date" model.modelDate
+        , Http.stringPart "model" model.modelDate
         , Http.stringPart "price" model.price
         , Http.filePart "picture" model.carPicture
         ]
