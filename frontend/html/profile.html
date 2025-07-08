@@ -1,19 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Main</title>
+    <script src="../js/profile.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Main</title>
-  <script src="../js/profile.js"></script>
-</head>
-
-<body>
-  <div id="myapp"></div>
-  <script>
-    let app = Elm.Main.init({
-      node: document.getElementById('myapp')
-    });
-  </script>
-</body>
-
+  <body>
+    <div id="myapp"></div>
+    <script>
+      let app = Elm.Main.init({
+        node: document.getElementById("myapp"),
+      });
+    </script>
+  </body>
 </html>

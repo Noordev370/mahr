@@ -1,21 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Main</title>
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <script src="/static/elm/sign-up.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Main</title>
-  <link rel="stylesheet" href="/static/css/index.css">
-  <script src="/static/elm/sign-up.js"></script>
-</head>
-
-<body class="lala">
-  <div id="myapp"></div>
-  <script>
-    let app = Elm.SignUp.init()
-    app.ports.sendToken.subscribe((msg) => {
-      window.sessionStorage.setItem("jwt_token", msg);
-    })
-  </script>
-</body>
-
+  <body>
+    <script>
+      let app = Elm.SignUp.init();
+      app.ports.sendToken.subscribe((msg) => {
+        window.sessionStorage.setItem("jwt_token", msg);
+      });
+    </script>
+  </body>
 </html>

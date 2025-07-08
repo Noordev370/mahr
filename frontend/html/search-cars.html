@@ -1,19 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Main</title>
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <script src="/static/elm/search-cars.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Search</title>
-  <script src="../js/search.js"></script>
-</head>
-
-<body>
-  <div id="myapp"></div>
-  <script>
-    let app = Elm.Main.init({
-      node: document.getElementById('myapp')
-    });
-  </script>
-</body>
-
+  <body>
+    <script>
+      let jwtToken = window.sessionStorage.getItem("jwt_token");
+      if (jwtToken === null) {
+        jwtToken = "";
+      } // convert it to empty string instead of null as elm expect a string
+      let app = Elm.SearchCars.init({ flags: jwtToken });
+    </script>
+  </body>
 </html>

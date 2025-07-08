@@ -1,19 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Main</title>
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <script src="/static/elm/post-car.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Main</title>
-  <link rel="stylesheet" href="/static/css/index.css">
-  <script src="/static/elm/post-car.js"></script>
-</head>
-
-<body>
-  <script>
-    let jwtToken = window.sessionStorage.getItem("jwt_token");
-    if (jwtToken === null) {jwtToken = ""} // convert it to empty string instead of null as elm expect a string
-    let app = Elm.PostCar.init({flags: jwtToken});
-  </script>
-</body>
-
+  <body>
+    <script>
+      let jwtToken = window.sessionStorage.getItem("jwt_token");
+      if (jwtToken === null) {
+        jwtToken = "";
+      } // convert it to empty string instead of null as elm expect a string
+      let app = Elm.PostCar.init({ flags: jwtToken });
+    </script>
+  </body>
 </html>

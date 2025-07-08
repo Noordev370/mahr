@@ -1,15 +1,14 @@
 import Hapi from "@hapi/hapi";
 import inert from "@hapi/inert";
-import boom from "@hapi/boom";
 import Path from "path";
 import { apiRoutes } from "./routes/api";
 import config from "./config";
-import utils from "./utils";
 
 const init = async () => {
   const server = Hapi.server({
     port: config.serverConfig.serverPort,
     host: config.serverConfig.serverIP,
+    debug: { request: ["error", "uncaught"] },
     routes: {
       files: { relativeTo: Path.join("/home/noor/mahr/backend", "static") },
     },

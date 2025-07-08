@@ -1,0 +1,19 @@
+{
+  "name": "mahr-frontend",
+  "version": "1.0.0",
+  "description": "mahr frontend",
+  "license": "MIT",
+  "author": "Noor",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Noordev370/mahr"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier .  --write"
+  },
+  "dependencies": {
+    "prettier": "^3.6.2"
+  }
+}

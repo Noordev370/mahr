@@ -1,9 +1,11 @@
 module SearchCars exposing (main)
 
 import Browser
+import Debug
 import Html exposing (..)
 import Html.Attributes exposing (class, name, value)
 import Html.Events as Events
+import Http
 import Json.Decode as D
 
 
@@ -25,7 +27,11 @@ type alias Car =
     }
 
 
-carsList : List Car
+type alias Cars =
+    List Car
+
+
+carsList : Cars
 carsList =
     [ Car "Honda" "white" 2000 500000
     , Car "Honda" "black" 2000 500000
@@ -77,16 +83,17 @@ type alias Model =
 
 initModel : Model
 initModel =
-    Model carsList PriceInc
+    Model [] PriceInc
 
 
 init : () -> ( Model, Cmd Msg )
 init () =
-    ( initModel, Cmd.none )
+    ( initModel, getCarsList )
 
 
 type Msg
     = ChangeOrdering String
+    | GotCarsList (Result Http.Error Cars)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -112,6 +119,14 @@ update msg model =
                         PriceInc
             in
             ( { model | ordering = ordering }, Cmd.none )
+
+        GotCarsList result ->
+            case result of
+                Ok cars ->
+                    ( { model | cars = cars }, Cmd.none )
+
+                Err httpErr ->
+                    ( Debug.log "error" model, Cmd.none )
 
 
 viewDocument : Model -> Browser.Document Msg
@@ -226,3 +241,30 @@ onChange func =
 alwaysStop : a -> ( a, Bool )
 alwaysStop x =
     ( x, True )
+
+
+
+-- Http things
+
+
+getCarsList : Cmd Msg
+getCarsList =
+    Http.get { url = "/api/get-buyable-cars", expect = Http.expectJson GotCarsList carsDecoder }
+
+
+
+-- json decoder
+
+
+carsDecoder : D.Decoder Cars
+carsDecoder =
+    D.list carDecoder
+
+
+carDecoder : D.Decoder Car
+carDecoder =
+    D.map4 Car
+        (D.field "mark" D.string)
+        (D.field "color" D.string)
+        (D.field "model" D.int)
+        (D.field "price" D.float)

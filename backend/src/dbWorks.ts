@@ -58,7 +58,7 @@ async function getCarRecordByID(carID: number) {
 }
 
 async function getAllAvilableCarsToBuy() {
-  const result = await sql`SELECT * FROM cars WHERE status = 'availabil'`;
+  const result = await sql`SELECT * FROM cars WHERE status = 'available'`;
   return result;
 }
 async function setCarSold(carID: number) {
