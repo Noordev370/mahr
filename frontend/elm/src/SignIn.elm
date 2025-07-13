@@ -84,12 +84,17 @@ viewDocument _ =
 
 
 view =
-    div [] [ usernameInput, passwordInput, submitButton ]
+    div [ class "sign-form" ] [ mahrHeading, usernameInput, passwordInput, submitButton ]
+
+
+mahrHeading =
+    div [ class "heading" ] [ text "mahr" ]
 
 
 usernameInput =
     div []
         [ label [ for "username" ] [ text "user name : " ]
+        , br [] []
         , input [ id "username", name "username", type_ "text", Events.onInput ChangeUserName ] []
         ]
 
@@ -97,12 +102,13 @@ usernameInput =
 passwordInput =
     div []
         [ label [ for "password" ] [ text "password : " ]
+        , br [] []
         , input [ id "password", name "pasword", type_ "password", Events.onInput ChangePassword ] []
         ]
 
 
 submitButton =
-    div [] [ button [ type_ "submit", Events.onClick Submit ] [ text "submit" ] ]
+    div [] [ button [ class "submit-btn", Events.onClick Submit ] [ text "submit" ] ]
 
 
 

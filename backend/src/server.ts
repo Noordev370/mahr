@@ -7,7 +7,7 @@ import config from "./config";
 const init = async () => {
   const server = Hapi.server({
     port: config.serverConfig.serverPort,
-    host: config.serverConfig.serverIP,
+    host: "0.0.0.0",
     debug: { request: ["error", "uncaught"] },
     routes: {
       files: { relativeTo: Path.join("/home/noor/mahr/backend", "static") },
@@ -69,7 +69,7 @@ const init = async () => {
   });
 
   await server.start();
-  console.log("Server running on http://localhost:3000/");
+  console.log("Server running on http://0.0.0.0:3000/");
 };
 
 process.on("unhandledRejection", (err) => {

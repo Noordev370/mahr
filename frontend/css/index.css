@@ -2,3 +2,14 @@
 @import url("./vars.css");
 @import url("./layout.css");
 @import url("./forms.css");
+
+html {
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+@media (min-width: 1024) {
+  html {
+    font-size: 20px;
+  }
+}

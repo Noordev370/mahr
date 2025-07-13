@@ -2,13 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Main</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in</title>
     <link rel="stylesheet" href="/static/css/index.css" />
+    <style>
+      body {
+        display: grid;
+        place-content: center;
+      }
+    </style>
     <script src="/static/elm/sign-in.js"></script>
   </head>
 
-  <body class="lala">
-    <div id="myapp"></div>
+  <body>
     <script>
       let app = Elm.SignIn.init();
       app.ports.sendToken.subscribe((msg) => {

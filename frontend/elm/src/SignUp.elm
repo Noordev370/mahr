@@ -112,12 +112,17 @@ viewDocument model =
 
 view_form : Model -> Html Msg
 view_form model =
-    div [ class "sign-up-form" ] [ usernameInput, passwordInput, passwordConfirmInput, profilePictureInput, profilePicturePreview model, submitButton ]
+    div [ class "sign-form" ] [ mahrHeading, usernameInput, passwordInput, passwordConfirmInput, bioInput, profilePictureInput, profilePicturePreview model, submitButton ]
+
+
+mahrHeading =
+    div [ class "heading" ] [ text "mahr" ]
 
 
 usernameInput =
     div []
         [ label [ for "username" ] [ text "user name : " ]
+        , br [] []
         , input [ id "username", name "username", required True, type_ "text", Events.onInput ChangeUserName ] []
         ]
 
@@ -125,6 +130,7 @@ usernameInput =
 passwordInput =
     div []
         [ label [ for "password" ] [ text "password : " ]
+        , br [] []
         , input [ id "password", name "pasword", required True, type_ "password", Events.onInput ChangePassword ] []
         ]
 
@@ -132,7 +138,16 @@ passwordInput =
 passwordConfirmInput =
     div []
         [ label [ for "password" ] [ text "password : " ]
+        , br [] []
         , input [ id "password", name "pasword", type_ "password", Events.onInput ChangePassword ] []
+        ]
+
+
+bioInput =
+    div []
+        [ label [ for "bio" ] [ text "bio" ]
+        , br [] []
+        , textarea [] []
         ]
 
 
@@ -157,7 +172,7 @@ profilePicturePreview model =
 
 
 submitButton =
-    div [] [ button [ type_ "submit", Events.onClick Submit ] [ text "submit" ] ]
+    div [] [ button [ class "submit-btn", type_ "submit", Events.onClick Submit ] [ text "submit" ] ]
 
 
 
