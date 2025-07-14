@@ -116,7 +116,7 @@ submitButton =
 
 
 sendFormData model =
-    Http.post { url = "http://localhost:3000/api/sign-in", body = body model, expect = Http.expectString RequestSent }
+    Http.post { url = "/api/sign-in", body = body model, expect = Http.expectString RequestSent }
 
 
 body : Model -> Http.Body

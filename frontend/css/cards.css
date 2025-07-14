@@ -1,0 +1,29 @@
+.car-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.car-card {
+}
+
+.car-card > .head {
+  margin-bottom: 1em;
+}
+
+.car-card > .mid {
+}
+
+.car-card > .end {
+}
+
+.car-card .price {
+}
+
+.car-card .model {
+}
+
+@media (max-width=800px) {
+  .car-card-container {
+    grid-template-columns: 1fr;
+  }
+}

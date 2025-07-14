@@ -3,7 +3,7 @@ module SearchCars exposing (main)
 import Browser
 import Debug
 import Html exposing (..)
-import Html.Attributes exposing (class, name, value)
+import Html.Attributes exposing (class, name, src, value)
 import Html.Events as Events
 import Http
 import Json.Decode as D
@@ -20,52 +20,17 @@ main =
 
 
 type alias Car =
-    { mark : String
+    { id : Int
+    , mark : String
     , color : String
     , modelDate : Int
     , price : Float
+    , fileName : String
     }
 
 
 type alias Cars =
     List Car
-
-
-carsList : Cars
-carsList =
-    [ Car "Honda" "white" 2000 500000
-    , Car "Honda" "black" 2000 500000
-    , Car "Honda" "red" 2005 500000
-
-    -----
-    , Car "Toyota" "silver" 2000 600000
-    , Car "Toyota" "red" 2000 600000
-    , Car "Toyota" "blue" 2003 600000
-
-    -----
-    , Car "Ford" "green" 2000 500000
-    , Car "Ford" "blue" 2000 900000
-    , Car "Ford" "white" 2000 900000
-
-    -----
-    , Car "BMW" "white" 2002 1000000
-    , Car "BMW" "white" 2009 1000000
-    , Car "BMW" "white" 2010 1000000
-
-    -----
-    , Car "Mercedes-Benz" "white" 2002 500000
-    , Car "Mercedes-Benz" "silver" 2001 500000
-    , Car "Mercedes-Benz" "black" 2000 500000
-
-    -----
-    , Car "Lancer" "red" 1999 500000
-    , Car "Nissan" "red" 1999 500000
-
-    -----
-    , Car "Nissan" "blue" 2006 400000
-    , Car "Nissan" "silver" 2001 400000
-    , Car "Nissan" "white" 2010 400000
-    ]
 
 
 type OrderBy
@@ -191,17 +156,30 @@ carsTableBody model =
                 ModelDec ->
                     orederCarsByModelDec model.cars
     in
-    tbody [] (List.map carToRow orderedCars)
+    tbody [] (List.map carToCard orderedCars)
 
 
-carToRow : Car -> Html Msg
-carToRow car =
-    tr []
-        [ td [] [ text car.mark ]
-        , td [] [ text car.color ]
-        , td [] [ car.modelDate |> String.fromInt |> text ]
-        , td [] [ car.price |> String.fromFloat |> text ]
-        ]
+carToCard : Car -> Html Msg
+carToCard car =
+    let
+        imgUrl =
+            "/uploads" ++ car.fileName
+
+        head =
+            div [ class "head" ] [ img [ src imgUrl ] [] ]
+
+        mid =
+            div [ class "mid" ]
+                [ span [ class "model" ] [ text <| car.mark ++ " " ++ String.fromInt car.modelDate ]
+                , div [ class "vl" ] []
+                , span [ class "price" ] [ text <| "$" ++ String.fromFloat car.price ]
+                ]
+
+        end =
+            div [ class "end" ] []
+    in
+    div [ class "car-card" ]
+        [ head, hr [] [], mid, end ]
 
 
 
@@ -263,8 +241,10 @@ carsDecoder =
 
 carDecoder : D.Decoder Car
 carDecoder =
-    D.map4 Car
+    D.map6 Car
+        (D.field "id" D.int)
         (D.field "mark" D.string)
         (D.field "color" D.string)
         (D.field "model" D.int)
         (D.field "price" D.float)
+        (D.field "picture_file_name" D.string)
