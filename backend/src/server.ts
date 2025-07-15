@@ -30,6 +30,13 @@ const init = async () => {
     path: "/static/{param*}",
     handler: { directory: { path: "." } },
   });
+  
+  server.route({
+    method: "GET",
+    path: "/uploads/{param*}",
+    options : {files : {relativeTo: Path.join("/home/noor/mahr/backend", "uploads") }},
+    handler: { directory: { path: "." } },
+  });
 
   server.route({
     method: "GET",
@@ -69,7 +76,7 @@ const init = async () => {
   });
 
   await server.start();
-  console.log("Server running on http://0.0.0.0:3000/");
+  console.log("Server running on http://127.0.0.1:3000/");
 };
 
 process.on("unhandledRejection", (err) => {

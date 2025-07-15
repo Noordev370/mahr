@@ -10,7 +10,7 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.sign-form .submit-btn {
+.submit-btn {
   font-weight: bold;
   color: white;
   background-color: var(--acc-color);

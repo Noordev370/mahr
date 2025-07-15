@@ -268,7 +268,7 @@ sendCarInfo model =
     Http.request
         { method = "POST"
         , headers = [ Http.header "Authorization" ("Bearer " ++ "") ]
-        , url = "http://localhost:3000/api/post-car"
+        , url = "/api/post-car"
         , body = body model
         , expect = Http.expectWhatever RequestSent
         , timeout = Nothing

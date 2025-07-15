@@ -121,26 +121,11 @@ orderByControl =
 
 viewMain : Model -> Html Msg
 viewMain model =
-    main_ [] [ viewCarsTable model ]
+    main_ [] [ carCardContainer model ]
 
 
-viewCarsTable model =
-    table [ class "" ] [ carsTableHead, carsTableBody model ]
-
-
-carsTableHead =
-    thead []
-        [ tr []
-            [ th [] [ text "Mark" ]
-            , th [] [ text "Color" ]
-            , th [] [ text "Model" ]
-            , th [] [ text "Price" ]
-            ]
-        ]
-
-
-carsTableBody : Model -> Html Msg
-carsTableBody model =
+carCardContainer : Model -> Html Msg
+carCardContainer model =
     let
         orderedCars =
             case model.ordering of
@@ -156,14 +141,14 @@ carsTableBody model =
                 ModelDec ->
                     orederCarsByModelDec model.cars
     in
-    tbody [] (List.map carToCard orderedCars)
+    div [ class "car-card-container" ] (List.map carToCard orderedCars)
 
 
 carToCard : Car -> Html Msg
 carToCard car =
     let
         imgUrl =
-            "/uploads" ++ car.fileName
+            "/uploads/" ++ car.fileName
 
         head =
             div [ class "head" ] [ img [ src imgUrl ] [] ]
@@ -171,15 +156,12 @@ carToCard car =
         mid =
             div [ class "mid" ]
                 [ span [ class "model" ] [ text <| car.mark ++ " " ++ String.fromInt car.modelDate ]
-                , div [ class "vl" ] []
+                , hr [] []
                 , span [ class "price" ] [ text <| "$" ++ String.fromFloat car.price ]
                 ]
-
-        end =
-            div [ class "end" ] []
     in
     div [ class "car-card" ]
-        [ head, hr [] [], mid, end ]
+        [ head, hr [] [], mid, div [] [ button [ class "submit-btn" ] [ text "Buy this car" ] ] ]
 
 
 
@@ -207,7 +189,7 @@ orederCarsByModelDec xs =
 
 
 
--- elm Html.event lack pre built onChange event, so we implement it
+-- elm Html.event lacks pre built onChange event, so we implement it
 
 
 onChange : (String -> msg) -> Attribute msg

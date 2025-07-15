@@ -8,7 +8,8 @@ import utils from "../utils";
 const apiRoutes = {
   name: "api_routes_plugin",
   version: "1.0.0",
-  register: async function (server: Server, options: any) {
+  routes: { cors: { origin: ["*"] } },
+  register: async function(server: Server, options: any) {
     server.route({
       method: "POST",
       path: "/api/sign-in",
@@ -91,7 +92,24 @@ const apiRoutes = {
           status: "available",
           picture_file_name: payload.picture.hapi.filename,
         });
-        return "ok";
+        if (!payload.picture) {
+          throw boom.badRequest;
+        }
+        const uploadedFileStream = createWriteStream(
+          path.resolve(
+            process.cwd(),
+            "./uploads",
+            payload.picture.hapi.filename,
+          ),
+        );
+        return new Promise((resolve, reject) => {
+          payload.picture
+            .pipe(uploadedFileStream)
+            .on("error", (err: any) => console.log(err))
+            .on("finish", () => {
+              resolve("ok");
+            });
+        });
       },
     });
     server.route({

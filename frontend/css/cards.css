@@ -1,13 +1,21 @@
 .car-card-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  max-width: 350px;
+  column-gap: 10px;
 }
 
 .car-card {
+  width: 300px;
+
+  &img {
+    object-fit: fill;
+  }
 }
 
 .car-card > .head {
   margin-bottom: 1em;
+  max-height: 250px;
 }
 
 .car-card > .mid {
@@ -22,8 +30,17 @@
 .car-card .model {
 }
 
-@media (max-width=800px) {
+@media (min-width: 1024px) {
   .car-card-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    max-width: 850px;
+  }
+
+  .car-card {
+    width: 380px;
+  }
+
+  .car-card > .head {
+    max-height: 500px;
   }
 }
