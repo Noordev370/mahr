@@ -1,0 +1,13 @@
+.toolbar {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-bottom: 2em;
+  padding-inline: 1em;
+}
+
+.toolbar select {
+  font-weight: bold;
+  min-width: 100px;
+  border: none;
+  color: var(--acc-color);
+  background-color: white;
+}

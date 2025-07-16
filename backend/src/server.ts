@@ -11,6 +11,7 @@ const init = async () => {
     debug: { request: ["error", "uncaught"] },
     routes: {
       files: { relativeTo: Path.join("/home/noor/mahr/backend", "static") },
+      payload: { maxBytes: 2 * 1024 * 1024 },
     },
   });
 
@@ -30,11 +31,13 @@ const init = async () => {
     path: "/static/{param*}",
     handler: { directory: { path: "." } },
   });
-  
+
   server.route({
     method: "GET",
     path: "/uploads/{param*}",
-    options : {files : {relativeTo: Path.join("/home/noor/mahr/backend", "uploads") }},
+    options: {
+      files: { relativeTo: Path.join("/home/noor/mahr/backend", "uploads") },
+    },
     handler: { directory: { path: "." } },
   });
 

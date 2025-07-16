@@ -101,7 +101,7 @@ viewDocument model =
 
 viewHeader : Model -> Html Msg
 viewHeader model =
-    header [] [ resultDescription model, orderByControl ]
+    header [ class "toolbar" ] [ resultDescription model, orderByControl ]
 
 
 resultDescription model =
@@ -110,7 +110,8 @@ resultDescription model =
 
 orderByControl =
     div []
-        [ select [ name "order-by", class "order-by", onChange ChangeOrdering ]
+        [ label [] [ text "sort by : " ]
+        , select [ name "order-by", class "order-by", onChange ChangeOrdering ]
             [ option [ value "PriceInc" ] [ text "Price Inc" ]
             , option [ value "PriceDec" ] [ text "Price Dec" ]
             , option [ value "ModelInc" ] [ text "Model Inc" ]
@@ -156,7 +157,7 @@ carToCard car =
         mid =
             div [ class "mid" ]
                 [ span [ class "model" ] [ text <| car.mark ++ " " ++ String.fromInt car.modelDate ]
-                , hr [] []
+                , div [ class "vl" ] []
                 , span [ class "price" ] [ text <| "$" ++ String.fromFloat car.price ]
                 ]
     in

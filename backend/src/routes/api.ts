@@ -9,7 +9,7 @@ const apiRoutes = {
   name: "api_routes_plugin",
   version: "1.0.0",
   routes: { cors: { origin: ["*"] } },
-  register: async function(server: Server, options: any) {
+  register: async function (server: Server, options: any) {
     server.route({
       method: "POST",
       path: "/api/sign-in",

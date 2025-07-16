@@ -2,32 +2,44 @@
   display: grid;
   grid-template-columns: 1fr;
   max-width: 350px;
-  column-gap: 10px;
+  gap: 15px;
 }
 
 .car-card {
   width: 300px;
-
-  &img {
-    object-fit: fill;
-  }
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .car-card > .head {
   margin-bottom: 1em;
-  max-height: 250px;
+  height: 200px;
 }
 
-.car-card > .mid {
+.car-card img {
+  height: 100%;
+  width: 100%;
 }
 
-.car-card > .end {
+.car-card .vl {
+  display: inline-block;
+  height: 20px;
+  width: 2px;
+  background-color: black;
+  margin-inline: 1em;
+  margin-top: 0.5em;
+}
+
+.car-card .mid {
+  margin-block: 0.5em;
 }
 
 .car-card .price {
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .car-card .model {
+  font-weight: bold;
 }
 
 @media (min-width: 1024px) {
@@ -41,6 +53,6 @@
   }
 
   .car-card > .head {
-    max-height: 500px;
+    height: 400px;
   }
 }
