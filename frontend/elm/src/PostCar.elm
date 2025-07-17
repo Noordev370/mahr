@@ -138,13 +138,18 @@ viewDocument model =
 
 view : Model -> Html Msg
 view model =
-    div [] [ markInput model, colorInput model, modelDateInput model, priceInput model, pictureInput model, submitButton ]
+    div [ class "sign-form" ] [ mahrHeading, markInput model, colorInput model, modelDateInput model, priceInput model, pictureInput model, submitButton ]
+
+
+mahrHeading =
+    div [ class "heading" ] [ text "mahr" ]
 
 
 markInput : Model -> Html Msg
 markInput model =
     div []
         [ label [ for "mark" ] [ text "Mark : " ]
+        , br [] []
         , input [ type_ "text", id "mark", name "mark", Events.onInput ChangeMark ] []
         , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.markErr ] -- a div represent a space for error message, will be empty if no validation errors
         ]
@@ -154,6 +159,7 @@ colorInput : Model -> Html Msg
 colorInput model =
     div []
         [ label [ for "color" ] [ text "Color : " ]
+        , br [] []
         , input [ type_ "text", id "color", name "color", Events.onInput ChangeColor ] []
         , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.colorErr ] -- a div represent a space for error message, will be empty if no validation errors
         ]
@@ -163,6 +169,7 @@ modelDateInput : Model -> Html Msg
 modelDateInput model =
     div []
         [ label [ for "date" ] [ text "Model date : " ]
+        , br [] []
         , input [ type_ "number", id "date", name "date", Events.onInput ChangeDate ] []
         , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.modelDateErr ]
         ]
@@ -172,6 +179,7 @@ priceInput : Model -> Html Msg
 priceInput model =
     div []
         [ label [ for "price" ] [ text "Price : " ]
+        , br [] []
         , input [ type_ "number", id "price", name "price", Events.onInput ChangePrice ] []
         , div [ class "invalid-input-message" ] [ text model.validationErrMsgs.priceErr ]
         ]
@@ -187,7 +195,7 @@ pictureInput model =
 
 
 submitButton =
-    div [] [ button [ type_ "submit", Events.onClick Submit ] [ text "submit" ] ]
+    div [] [ button [ class "submit-btn", type_ "submit", Events.onClick Submit ] [ text "submit" ] ]
 
 
 

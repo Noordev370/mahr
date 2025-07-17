@@ -1,0 +1,67 @@
+@import url("./reset.css");
+@import url("./vars.css");
+
+html {
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+a {
+  /* color: inherit; */
+  color: var(--acc-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  padding-inline: 2em;
+}
+
+nav .mahr-logo-txt {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-right: 2em;
+}
+
+nav .links {
+  justify-content: space-evenly;
+  display: flex;
+  margin-top: 0.5em;
+  flex: 1;
+}
+
+.hero {
+  display: flex;
+}
+
+.hero .r-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero .l-box {
+  flex: 2;
+}
+
+.btn-prim1 {
+  text-align: center;
+  padding-inline: 1em;
+  color: var(--acc-color);
+  background-color: white;
+}
+
+.btn-prim2 {
+  text-align: center;
+  padding-inline: 1em;
+  color: white;
+  background-color: var(--acc-color);
+}

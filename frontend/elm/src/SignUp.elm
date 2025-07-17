@@ -145,7 +145,7 @@ passwordConfirmInput =
 
 bioInput =
     div []
-        [ label [ for "bio" ] [ text "bio" ]
+        [ label [ for "bio" ] [ text "bio : " ]
         , br [] []
         , textarea [] []
         ]
