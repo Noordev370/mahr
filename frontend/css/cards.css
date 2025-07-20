@@ -10,7 +10,7 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.car-card>.head {
+.car-card > .head {
   margin-bottom: 1em;
   height: 200px;
 }
@@ -31,6 +31,7 @@
 
 .car-card .mid {
   margin-block: 0.5em;
+  padding-inline: 1em;
 }
 
 .car-card .price {
@@ -40,6 +41,10 @@
 
 .car-card .model {
   font-weight: bold;
+}
+
+.car-card .btn {
+  padding-inline: 1em;
 }
 
 @media (min-width: 1200px) {
@@ -52,7 +57,7 @@
     width: 500px;
   }
 
-  .car-card>.head {
+  .car-card > .head {
     height: 400px;
   }
 }

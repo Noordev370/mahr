@@ -162,7 +162,7 @@ carToCard car =
                 ]
     in
     div [ class "car-card" ]
-        [ head, hr [] [], mid, div [] [ button [ class "submit-btn" ] [ text "Buy this car" ] ] ]
+        [ head, hr [] [], mid, div [ class "btn" ] [ button [ class "submit-btn" ] [ text "Buy this car" ] ] ]
 
 
 

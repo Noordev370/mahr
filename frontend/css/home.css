@@ -57,7 +57,6 @@ nav .links {
   display: flex;
   flex-direction: column;
   gap: 2em;
-
 }
 
 .hero .l-box {
@@ -106,7 +105,6 @@ nav .links {
   font-weight: bold;
 }
 
-
 .cards-con {
   display: flex;
   flex-direction: row;
@@ -114,13 +112,12 @@ nav .links {
   justify-content: space-around;
   margin-top: 1em;
   gap: 10px;
-
 }
 
 .card {
   background-color: white;
   min-width: 200px;
-  flex: 0 0 200px
+  flex: 0 0 200px;
 }
 
 .card .icon {
@@ -132,7 +129,6 @@ nav .links {
   margin-inline: auto;
   margin-top: 1em;
 }
-
 
 .card .h-txt {
   font-weight: bold;
@@ -166,7 +162,6 @@ footer hr {
   margin-block: 2em;
   width: 95%;
 }
-
 
 .last-txt-h {
   font-weight: bold;
