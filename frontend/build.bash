@@ -4,6 +4,7 @@ mkdir static
 mkdir ./static/elm
 mkdir ./static/html
 mkdir ./static/css
+mkdir ./static/images
 
 # build elm
 cd elm
@@ -19,6 +20,9 @@ cp -r ./html/* ./static/html
 
 # build css
 cp -r ./css/* ./static/css
+
+# copy images
+cp -r ./images/* ./static/images
 
 # then copy the static folder to backend
 rm -r ../backend/static
