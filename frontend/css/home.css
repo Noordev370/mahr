@@ -144,10 +144,36 @@ nav .links {
 
 footer {
   background-color: black;
+  color: white;
   margin-top: 4em;
-  background-image: url("https://s.sylndr.com/c-c805440/_next/static/media/background.270aa3c8.svg");
+  padding: 2em;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI2ODQiIHZpZXdCb3g9IjAgMCAxNDQwIDY4NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzgwM180NDY2MCkiPgo8cmVjdCB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI2ODQiIGZpbGw9IiMxRDI5MzkiLz4KPGcgb3BhY2l0eT0iMC40IiBjbGlwLXBhdGg9InVybCgjY2xpcDFfODAzXzQ0NjYwKSI+CjxwYXRoIGQ9Ik0xOTc1LjIgLTI4NkgtNTE3LjA4NlY5NzBIMTk3NS4yVi0yODZaIiBmaWxsPSIjMUQyOTM5Ii8+CjxwYXRoIGQ9Ik02NjUuOTc4IDEzMi42NjdMNjg5LjA4NiAyMDEuNjgySDcxMi40MDJIODIwLjAyOUg4ODIuODk4TDg1OS45OTggMTMyLjY2N0g4MjAuMDI5SDcxMi40MDJINjY1Ljk3OFoiIGZpbGw9IiMzNDQwNTQiLz4KPHBhdGggZD0iTS05LjM0NDczIDIxOC43MjhILTUxLjM5NjNILTk3LjgxOTZMLTc0LjcxMiAyODcuNzQ0SC01MS4zOTYzSC05LjM0NDczSDUzLjczMjZMMzAuNjI1IDIxOC43MjhILTkuMzQ0NzNaIiBmaWxsPSIjMzQ0MDU0Ii8+CjxwYXRoIGQ9Ik0xMjQ5LjA4IDY1Ni4xMDRIMTIwNy4wM0gxMTYwLjZMMTE4My43MSA3MjUuMTJIMTIwNy4wM0gxMjQ5LjA4SDEzMTIuMTZMMTI4OS4wNSA2NTYuMTA0SDEyNDkuMDhaIiBmaWxsPSIjMzQ0MDU0Ii8+CjxwYXRoIGQ9Ik02NjUuOTc4IDM5Ni42NzJINDg4LjQwNEg0NDEuOTgxTDQ2NS4wODkgNDY1LjY4N0g0ODguNDA0SDY2NS45NzhINzI5LjA1Nkw3MDUuOTQ4IDM5Ni42NzJINjY1Ljk3OFoiIGZpbGw9IiMzNDQwNTQiLz4KPC9nPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzgwM180NDY2MCI+CjxyZWN0IHdpZHRoPSIxNDQwIiBoZWlnaHQ9IjY4NCIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPGNsaXBQYXRoIGlkPSJjbGlwMV84MDNfNDQ2NjAiPgo8cmVjdCB3aWR0aD0iMjU5MiIgaGVpZ2h0PSIxMjU2IiBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU3NiAtMjg2KSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=");
 }
 
-.ft-ready {}
+.ft-ready {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
-.ft-links {}
+.ft-ready .h-txt {
+  margin-top: 0.1em;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+footer hr {
+  margin-block: 2em;
+  width: 95%;
+}
+
+
+.last-txt-h {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.tm {
+  color: grey;
+  font-size: 0.9em;
+}

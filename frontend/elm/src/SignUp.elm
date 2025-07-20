@@ -116,7 +116,7 @@ view_form model =
 
 
 mahrHeading =
-    div [ class "heading" ] [ text "mahr" ]
+    div [ class "heading" ] [ text "Cars.com" ]
 
 
 usernameInput =

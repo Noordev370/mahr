@@ -10,7 +10,7 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.car-card > .head {
+.car-card>.head {
   margin-bottom: 1em;
   height: 200px;
 }
@@ -42,17 +42,17 @@
   font-weight: bold;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .car-card-container {
     grid-template-columns: 1fr 1fr;
-    max-width: 850px;
+    max-width: 1050px;
   }
 
   .car-card {
-    width: 380px;
+    width: 500px;
   }
 
-  .car-card > .head {
+  .car-card>.head {
     height: 400px;
   }
 }
